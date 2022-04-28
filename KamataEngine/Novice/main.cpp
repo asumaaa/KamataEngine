@@ -3,7 +3,7 @@
 #define PI 3.141592653589
 
 
-void paralellMove(int **box,int size,float moveX,float moveY)
+void paralellMove(int (*box)[3], int size, float moveX, float moveY)
 {
 	float move[3][3] = {
 	  {1.0f, 0.0f, moveX},
@@ -85,6 +85,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//	box[i][1] = move[1][0] * box[i][0] + move[1][1] * box[i][1] + move[1][2] * box[i][2];
 	//	box[i][2] = move[2][0] * box[i][0] + move[2][1] * box[i][1] + move[2][2] * box[i][2];
 	//}
+
+	paralellMove(box,size,100,100)
 
 	//保存用の変数
 	float squareScaleX = 0.0f;
