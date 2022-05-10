@@ -77,13 +77,29 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	/*model_->Draw(worldTransform_, viewProjection_, textureHandle_);*/
 
-	PrimitiveDrawer::GetInstance()->DrawLine3d(
+	/*PrimitiveDrawer::GetInstance()->DrawLine3d(
 		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(5.0f, 0.0f, 0.0f),
-		Vector4(255, 255, 255, 255)
-	);
+		Vector3(5.0f, 5.0f, 5.0f),
+		color
+	);*/
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			for (int k = 0; k < 3; k++)
+			{
+				if (vecConnection[i][k] == j)
+					PrimitiveDrawer::GetInstance()->DrawLine3d(
+						vec[i],
+						vec[vecConnection[i][k]],
+						color
+					);
+			}
+		}
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
