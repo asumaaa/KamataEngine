@@ -5,6 +5,8 @@
 #include "affine.h"
 #include "math.h"
 
+#define PI 3.141592653589
+
 GameScene::GameScene() 
 {
 	//アフィン変換
@@ -12,6 +14,7 @@ GameScene::GameScene()
 	affineScale(vec3, 2.0f, 2.0f, 2.0f);
 	affineRollX(vec4, 2 / 2);
 }
+
 
 GameScene::~GameScene()
 {
