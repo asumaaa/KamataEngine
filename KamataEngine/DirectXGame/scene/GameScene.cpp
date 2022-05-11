@@ -2,8 +2,16 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "PrimitiveDrawer.h"
+#include "affine.h"
+#include "math.h"
 
-GameScene::GameScene() {}
+GameScene::GameScene() 
+{
+	//アフィン変換
+	affineMove(vec2, 10.0f, 10.0f, 10.0f);
+	affineScale(vec3, 2.0f, 2.0f, 2.0f);
+	affineRollX(vec4, 2 / 2);
+}
 
 GameScene::~GameScene()
 {
@@ -37,7 +45,7 @@ void GameScene::Initialize() {
 	worldTransform_.rotation_ = { 0.78f,0.78f , 0.0f };
 
 	// X, Y, Z軸周りの平行移動を設定
-	worldTransform_.translation_ = { 10.0f, 10.f, 10.0f };
+	worldTransform_.translation_ = { 10.0f, 15.f, 10.0f };
 
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -95,8 +103,23 @@ void GameScene::Draw() {
 					PrimitiveDrawer::GetInstance()->DrawLine3d(
 						vec[i],
 						vec[vecConnection[i][k]],
-						color
-					);
+						Vector4(255, 255, 255, 255)
+				);
+				PrimitiveDrawer::GetInstance()->DrawLine3d(
+					vec2[i],
+					vec2[vecConnection[i][k]],
+					Vector4(0, 255, 255, 255)
+				);
+				PrimitiveDrawer::GetInstance()->DrawLine3d(
+					vec3[i],
+					vec3[vecConnection[i][k]],
+					Vector4(255, 0, 255, 255)
+				);
+				PrimitiveDrawer::GetInstance()->DrawLine3d(
+					vec4[i],
+					vec4[vecConnection[i][k]],
+					Vector4(255, 255, 0, 255)
+				);
 			}
 		}
 	}
