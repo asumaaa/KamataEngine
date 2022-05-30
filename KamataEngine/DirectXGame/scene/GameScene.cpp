@@ -9,6 +9,7 @@ GameScene::~GameScene()
 {
 	delete model_;
 	delete debugCamera_;
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -27,26 +28,21 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize();
+
 	//ライン描画が参照するビュープロジェクションを指定する（アドレス渡し）
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	// X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = { 5.0f, 5.0f, 5.0f };
-
-	// X, Y, Z軸周りの回転角を設定 XMConvertToRadians()
-	worldTransform_.rotation_ = { 0.78f,0.78f , 0.0f };
-
-	// X, Y, Z軸周りの平行移動を設定
-	worldTransform_.translation_ = { 10.0f, 10.f, 10.0f };
-
-	//ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
 
 void GameScene::Update() 
 {
+	player_->Update();
 	debugCamera_->Update();
 }
 
@@ -76,14 +72,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-
-	PrimitiveDrawer::GetInstance()->DrawLine3d(
-		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(5.0f, 0.0f, 0.0f),
-		Vector4(255, 255, 255, 255)
-	);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -96,6 +84,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	
+	//自キャラの描画
+	player_->Draw();
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);

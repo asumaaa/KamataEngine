@@ -11,6 +11,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <DirectXMath.h>
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -33,15 +34,6 @@ class GameScene {
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
-	//ベクトル
-	Vector3 vec[2] =
-	{
-		{0,0,0},
-		{100,100,100},
-	};
-
-	Vector4 color = { 255,255,255, 128 };
 
   public: // メンバ関数
 	/// <summary>
@@ -74,6 +66,9 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
+
+	//自キャラ
+	Player* player_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
